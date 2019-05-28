@@ -51,7 +51,7 @@ class XBoxController(object):
             abbv = self.abbrevs[event.code]
             self.states[abbv] = event.state
 
-            self.output_state()
+            # self.output_state()
 
     def output_state(self):
         output_string = ""
