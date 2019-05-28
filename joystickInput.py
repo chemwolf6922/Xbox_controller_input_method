@@ -29,7 +29,7 @@ EVENT_ABB = (
 )
 
 
-class JSTest(object):
+class XBoxController(object):
     def __init__(self, gamepad=None, abbrevs=EVENT_ABB):
         self.states = {}
         self.abbrevs = dict(abbrevs)
@@ -69,9 +69,9 @@ class JSTest(object):
 
 
 def main():
-    jstest = JSTest()
+    controller = XBoxController()
     while 1:
-        jstest.process_events()
+        controller.process_events()
 
 
 if __name__ == "__main__":
