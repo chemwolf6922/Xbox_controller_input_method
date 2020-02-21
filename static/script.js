@@ -54,12 +54,12 @@ function drawKeyboard(data) {
     var targetKey = data.targetKey;
     var inputText = data.inputText;
     var inputTextBox = document.getElementById("inputText");
-    inputTextBox.innerHTML = inputText;
+    inputTextBox.innerHTML = ":"+inputText;
     var candidates = data.candidates.split(" ");
     var selectedCandidate = data.selectedCandidate;
     if(candidates.length != 0){
         var candidatesText = document.getElementById("candidates");
-        candidatesText.innerHTML = "";
+        candidatesText.innerHTML = ":";
         for(var i=0;i!=candidates.length;i++){
             if(i==selectedCandidate){
                 var tempStr = "";
