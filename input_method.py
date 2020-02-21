@@ -72,6 +72,9 @@ class word_dict():
                     wps.append([c_node.next(c),p])
         return wps
 
+    def sortSecond(self,val):
+        return val[1]
+
     def get_words(self,wps):
         words = []
         total_p = 0
@@ -85,6 +88,7 @@ class word_dict():
                 words.append([w,p])
         for wp in words:
             wp[1] /= total_p
+        words.sort(key = self.sortSecond,reverse = True)
         return words
 
 

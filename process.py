@@ -8,7 +8,7 @@ import pylab as pl
 labels = []
 data = []
 
-with open('log/data','r') as f:
+with open('log/data_gui','r') as f:
     for line in f:
         if line.strip('\n') in string.ascii_uppercase:
             labels.append(line.strip('\n'))
