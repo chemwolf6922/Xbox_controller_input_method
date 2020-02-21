@@ -26,7 +26,11 @@ def getInfo():
         LSX = controller.states['LSX'],
         LSY = controller.states['LSY'],
         RSX = controller.states['RSX'],
-        RSY = controller.states['RSY']
+        RSY = controller.states['RSY'],
+        targetKey = "X",
+        inputText = "hahaha",
+        candidates = "this is test",
+        selectedCandidate = 1
     )
 
 if __name__ == '__main__':
