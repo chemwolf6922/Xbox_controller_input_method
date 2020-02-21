@@ -42,9 +42,9 @@ class input_data():
 
     def confirm_input(self):
         if len(self.words) > 0:
-            if c_index >= len(self.words):
-                c_index = len(self.words) - 1
-            self.input_text += self.words[self.c_index]
+            if self.c_index >= len(self.words):
+                self.c_index = len(self.words) - 1
+            self.input_text += self.words[self.c_index][0]
             self.input_text += " "
         self.css = []
         self.pss = []
@@ -52,6 +52,21 @@ class input_data():
         self.words = []
         self.c_index = 0
 
+    def clear_all(self):
+        self.input_text = ""
+        self.css = []
+        self.pss = []
+        self.wps = self.w_dict.get_initial_wps()
+        self.words = []
+        self.c_index = 0
+
+    def select_next(self):
+        if self.c_index < len(self.words) - 1:
+            self.c_index += 1
+        
+    def select_last(self):
+        if self.c_index > 0:
+            self.c_index -= 1
     
 
 class process_thread(threading.Thread):
@@ -66,6 +81,11 @@ class process_thread(threading.Thread):
         self.running = False
 
         self.i_data = i_data
+
+        self.last_buttonA = 0
+        self.last_LB = 0
+        self.last_RB = 0
+        self.last_buttonB = 0
     
     def process(self):
         if self.time_out_counter > 0:
@@ -76,6 +96,25 @@ class process_thread(threading.Thread):
         LSY = self.controller.states['LSY']
         RSX = self.controller.states['RSX']
         RSY = self.controller.states['RSY']
+
+        buttonA = self.controller.states['A']
+        LB = self.controller.states['LB']
+        RB = self.controller.states['RB']
+        buttonB = self.controller.states['B']
+
+        if buttonA == 1 and self.last_buttonA == 0:
+            self.i_data.confirm_input()
+        if LB == 1 and self.last_LB == 0:
+            self.i_data.select_last()
+        if RB == 1 and self.last_RB == 0:
+            self.i_data.select_next()
+        if buttonB == 1 and self.last_buttonB == 0:
+            self.i_data.clear_all()
+
+        self.last_buttonA = buttonA
+        self.last_LB = LB
+        self.last_RB = RB
+        self.last_buttonB = buttonB
 
         input_detected = ((LSX**2+LSY**2)**0.5 >= 32767) or ((RSX**2+RSY**2)**0.5 >= 32767)
         if input_detected:

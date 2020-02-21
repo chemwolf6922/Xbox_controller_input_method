@@ -91,22 +91,22 @@ class word_dict():
         words.sort(key = self.sortSecond,reverse = True)
         return words
 
+if __name__ == '__main__':
+    raw_dict_pair = []
+    dict_len = 10000
 
-raw_dict_pair = []
-dict_len = 10000
+    with open('dict','r') as f:
+        for i in range(dict_len):
+            strs = f.readline().strip('\n').split(' ')
+            raw_dict_pair.append([strs[0],int(strs[1])])
 
-with open('dict','r') as f:
-    for i in range(dict_len):
-        strs = f.readline().strip('\n').split(' ')
-        raw_dict_pair.append([strs[0],int(strs[1])])
+    w_dict = word_dict()
 
-w_dict = word_dict()
+    for p in raw_dict_pair:
+        w = p[0]
+        f = p[1]
+        w_dict.add(w,f)
 
-for p in raw_dict_pair:
-    w = p[0]
-    f = p[1]
-    w_dict.add(w,f)
-
-wps = w_dict.predict([['a','b','c'],['s','b','c'],['s','b','c']],[[0.3,0.3,0.4],[0.3,0.3,0.4],[0.3,0.3,0.4]])
-words = w_dict.get_words(wps)
-print(words)
+    wps = w_dict.predict([['a','b','c'],['s','b','c'],['s','b','c']],[[0.3,0.3,0.4],[0.3,0.3,0.4],[0.3,0.3,0.4]])
+    words = w_dict.get_words(wps)
+    print(words)
